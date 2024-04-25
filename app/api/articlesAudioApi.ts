@@ -2,11 +2,12 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import {URL} from '@env'
 
 interface ArticlesAudioResponse {
-  data: any
+  articles: []
+  audio: []
 }
 
 export const articlesAudioApi = createApi({
-  reducerPath: 'pokemonApi',
+  reducerPath: 'articlesAudioApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${URL}`,
     prepareHeaders: headers => {
@@ -15,7 +16,7 @@ export const articlesAudioApi = createApi({
     },
   }),
   endpoints: builder => ({
-    getPokemonByName: builder.query<ArticlesAudioResponse, void>({
+    getArticlesAudio: builder.query<ArticlesAudioResponse, void>({
       query: () => ({
         url: 'affirmations/test',
         method: 'get',
@@ -25,4 +26,4 @@ export const articlesAudioApi = createApi({
   }),
 })
 
-export const {useGetPokemonByNameQuery} = articlesAudioApi
+export const {useLazyGetArticlesAudioQuery} = articlesAudioApi

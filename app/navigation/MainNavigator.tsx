@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
 import {MainStackScreen} from './constants'
 import {BottomTabNavigator} from './BottomTabNavigator'
-import {useGetPokemonByNameQuery} from '../api/articlesAudioApi.ts'
+import {useLazyGetArticlesAudioQuery} from '../api/articlesAudioApi.ts'
 
 export type RootParamList = {
   BottomTabNavigator: undefined
@@ -13,7 +13,12 @@ export type RootParamList = {
 const MainStack = createNativeStackNavigator<RootParamList>()
 
 export const MainNavigator = () => {
-  const {data} = useGetPokemonByNameQuery()
+  const [trigger] = useLazyGetArticlesAudioQuery()
+
+  useEffect(() => {
+    trigger()
+  }, [])
+
   return (
     <NavigationContainer>
       <MainStack.Navigator
