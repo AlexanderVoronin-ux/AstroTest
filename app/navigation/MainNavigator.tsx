@@ -14,7 +14,6 @@ const MainStack = createNativeStackNavigator<RootParamList>()
 
 export const MainNavigator = () => {
   const {data} = useGetPokemonByNameQuery()
-
   return (
     <NavigationContainer>
       <MainStack.Navigator
