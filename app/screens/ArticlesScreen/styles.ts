@@ -45,14 +45,3 @@ export const TITLE_2_TXT: TextStyle = {
   color: colors.black,
   textAlign: 'center',
 }
-export const TITLE_3_TXT: TextStyle = {
-  fontFamily: fonts.poppinsExtraBold_800,
-  fontSize: 16,
-  color: colors.black,
-}
-export const SUBTITLE_TXT: TextStyle = {
-  fontFamily: fonts.poppinsMedium_500,
-  fontSize: 12,
-  color: colors.gray,
-  paddingTop: 20,
-}

@@ -2,22 +2,28 @@ import React from 'react'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {Platform} from 'react-native'
 
-import {BottomTabScreen} from './constants'
+import {BottomTabParamList, BottomTabStack} from './constants'
 import {colors, fonts} from '../constants'
 import {SVGIcon} from '../components'
-import {ArticlesScreen, AudioScreen} from '../screens'
-
-export type BottomTabParamList = {
-  ArticlesScreen: undefined
-  AudioScreen: undefined
-}
+import {AudioScreen} from '../screens'
+import {ArticlesStackNavigator} from './ArticlesStackNavigator'
+import {getFocusedRouteNameFromRoute, RouteProp} from '@react-navigation/native'
 
 const Tab = createBottomTabNavigator<BottomTabParamList>()
 
 export const BottomTabNavigator = () => {
+  const handleDisplayTabs = (
+    route: RouteProp<BottomTabParamList, keyof BottomTabParamList>,
+  ) => {
+    const routeName = getFocusedRouteNameFromRoute(route) ?? ''
+    if (routeName === 'ArticleScreen') {
+      return 'none'
+    }
+    return 'flex'
+  }
   return (
     <Tab.Navigator
-      screenOptions={{
+      screenOptions={({route}) => ({
         headerShown: false,
         tabBarStyle: {
           height: Platform.OS === 'ios' ? 80 : 70,
@@ -27,11 +33,12 @@ export const BottomTabNavigator = () => {
           borderTopRightRadius: 10,
           borderWidth: 1,
           borderColor: colors.black,
+          display: handleDisplayTabs(route),
         },
         tabBarActiveTintColor: colors.yellow,
         tabBarInactiveTintColor: colors.gray,
         tabBarHideOnKeyboard: true,
-      }}>
+      })}>
       <Tab.Screen
         options={{
           title: 'Articles',
@@ -47,8 +54,8 @@ export const BottomTabNavigator = () => {
             />
           ),
         }}
-        name={BottomTabScreen.ArticlesScreen}
-        component={ArticlesScreen}
+        name={BottomTabStack.ArticlesStackNavigator}
+        component={ArticlesStackNavigator}
       />
       <Tab.Screen
         options={{
@@ -65,7 +72,7 @@ export const BottomTabNavigator = () => {
             />
           ),
         }}
-        name={BottomTabScreen.AudioScreen}
+        name={BottomTabStack.AudioScreen}
         component={AudioScreen}
       />
     </Tab.Navigator>

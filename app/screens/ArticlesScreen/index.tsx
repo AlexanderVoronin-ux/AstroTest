@@ -1,9 +1,12 @@
 import React, {FC, useCallback} from 'react'
 import {FlatList, Text, TouchableOpacity, View} from 'react-native'
 import {useSelector} from 'react-redux'
+import {StackScreenProps} from '@react-navigation/stack'
+import {NativeStackNavigationProp} from '@react-navigation/native-stack'
+import {useNavigation} from '@react-navigation/native'
 
-import {PlasticBoardLayout} from '../../components'
 import {selectArticles} from '../../store/selectors/articles.ts'
+import {ArticlesStack, ArticlesStackList} from '../../navigation/constants.ts'
 import * as S from './styles.ts'
 
 export interface IArticlesOption {
@@ -12,8 +15,12 @@ export interface IArticlesOption {
   title: string
 }
 
-export const ArticlesScreen: FC = () => {
+export const ArticlesScreen: FC<
+  StackScreenProps<ArticlesStackList, ArticlesStack.ArticlesScreen>
+> = () => {
   const articles = useSelector(selectArticles)
+  const navigation =
+    useNavigation<NativeStackNavigationProp<ArticlesStackList>>()
 
   const ListHeaderComponent: React.FC = () => {
     return (
@@ -27,7 +34,11 @@ export const ArticlesScreen: FC = () => {
     ({item}: {item: IArticlesOption}) => {
       const {title, description} = item
       return (
-        <TouchableOpacity style={S.CARD_CTR}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(ArticlesStack.ArticleScreen, {article: item})
+          }
+          style={S.CARD_CTR}>
           <View style={S.TEXT_CTR}>
             <Text style={S.TITLE_2_TXT}>{title}</Text>
             <Text numberOfLines={6} ellipsizeMode={'tail'}>
@@ -46,18 +57,15 @@ export const ArticlesScreen: FC = () => {
   )
 
   return (
-    <PlasticBoardLayout>
-      <FlatList
-        ListHeaderComponent={() => <ListHeaderComponent />}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={keyExtractor}
-        data={articles}
-        renderItem={renderItem}
-        // getItemLayout={getItemLayout}
-        alwaysBounceVertical={false}
-        stickyHeaderHiddenOnScroll={true}
-        stickyHeaderIndices={[0]}
-      />
-    </PlasticBoardLayout>
+    <FlatList
+      ListHeaderComponent={() => <ListHeaderComponent />}
+      showsVerticalScrollIndicator={false}
+      keyExtractor={keyExtractor}
+      data={articles}
+      renderItem={renderItem}
+      alwaysBounceVertical={false}
+      stickyHeaderHiddenOnScroll={true}
+      stickyHeaderIndices={[0]}
+    />
   )
 }
