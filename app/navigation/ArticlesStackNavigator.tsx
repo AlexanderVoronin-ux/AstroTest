@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {FC} from 'react'
 import {createStackNavigator} from '@react-navigation/stack'
 
 import {ArticleScreen, ArticlesScreen} from '../screens'
@@ -9,7 +9,7 @@ import {SVGIcon} from '../components'
 
 const Stack = createStackNavigator<ArticlesStackList>()
 
-export const ArticlesStackNavigator = () => {
+export const ArticlesStackNavigator: FC = () => {
   return (
     <Stack.Navigator
       screenOptions={{
