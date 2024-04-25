@@ -6,10 +6,18 @@
  */
 
 import React from 'react'
-import {SafeAreaView} from 'react-native'
+import {SafeAreaProvider} from 'react-native-safe-area-context'
+import {StatusBar} from 'react-native'
+
+import {MainNavigator} from './app/navigation/MainNavigator.tsx'
 
 function App(): React.JSX.Element {
-  return <SafeAreaView></SafeAreaView>
+  return (
+    <SafeAreaProvider>
+      <MainNavigator />
+      <StatusBar barStyle={'dark-content'} />
+    </SafeAreaProvider>
+  )
 }
 
 export default App
