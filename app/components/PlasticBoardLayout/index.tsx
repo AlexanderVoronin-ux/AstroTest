@@ -5,7 +5,6 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   SafeAreaView,
-  ScrollView,
 } from 'react-native'
 import {FC} from 'react'
 import LinearGradient from 'react-native-linear-gradient'
@@ -26,16 +25,9 @@ export const PlasticBoardLayout: FC<PlasticBoardLayoutProps> = ({children}) => {
         <KeyboardAvoidingView
           style={{flex: 1}}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <ScrollView
-            style={[S.CTR]}
-            stickyHeaderIndices={[0]}
-            showsVerticalScrollIndicator={false}>
-            {/*<CustomHeader />*/}
-
-            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-              {children}
-            </TouchableWithoutFeedback>
-          </ScrollView>
+          <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            {children}
+          </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
       </SafeAreaView>
     </LinearGradient>

@@ -20,11 +20,13 @@ export const BottomTabNavigator = () => {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          borderTopWidth: 0,
-          elevation: 0,
           height: Platform.OS === 'ios' ? 80 : 70,
-          backgroundColor: 'transparent',
+          backgroundColor: colors.white_2,
           position: 'absolute',
+          borderTopLeftRadius: 10,
+          borderTopRightRadius: 10,
+          borderWidth: 1,
+          borderColor: colors.black,
         },
         tabBarActiveTintColor: colors.yellow,
         tabBarInactiveTintColor: colors.gray,
