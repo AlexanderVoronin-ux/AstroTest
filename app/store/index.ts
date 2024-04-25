@@ -15,6 +15,7 @@ import {
 import {ThunkAction} from 'redux-thunk'
 
 import {rootReducer, RootState} from './rootReducer'
+import {articlesAudioApi} from '../api/articlesAudioApi.ts'
 
 const persistConfig: PersistConfig<RootState> = {
   key: 'root',
@@ -33,7 +34,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(articlesAudioApi.middleware),
 })
 
 export const persistor = persistStore(store)
