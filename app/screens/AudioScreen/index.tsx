@@ -22,7 +22,16 @@ export interface IAudiOption {
   title: string
   icon: string
   media: MediaType
-  paid: false
+  paid: boolean
+}
+
+export interface IAudiOptionState {
+  id: number
+  name: string
+  title: string
+  icon: string
+  media: MediaType
+  paid: boolean
 }
 
 export const AudioScreen: FC = () => {

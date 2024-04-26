@@ -13,9 +13,9 @@ export const BottomSheetModalComponent = forwardRef<BottomSheetModal>(
     const {
       handleSheetChanges,
       togglePlayBack,
-      isPlaying,
       audioTrack,
       isPlayerReady,
+      changeBtnTitle,
     } = useGetTrackPlayer()
 
     return (
@@ -26,19 +26,19 @@ export const BottomSheetModalComponent = forwardRef<BottomSheetModal>(
         onChange={handleSheetChanges}
         backgroundStyle={{backgroundColor: colors.purpleLight}}>
         <View style={S.TEXT_MODAL_CTR}>
-          <Text style={S.TITLE_2_TXT}>{audioTrack?.name}</Text>
+          <Text style={S.TITLE_2_TXT}>{audioTrack[0]?.name}</Text>
           <View style={S.IMAGE_CTR}>
             <Image
               style={{width: 20, height: 20}}
-              source={{uri: audioTrack?.icon}}
+              source={{uri: audioTrack[0]?.icon}}
             />
           </View>
-          <Text>{audioTrack?.title}</Text>
+          <Text>{audioTrack[0]?.title}</Text>
           {isPlayerReady ? (
             <Button
-              title={!isPlaying ? 'Play Track' : 'Pause'}
+              title={changeBtnTitle()}
               color={colors.red}
-              onPress={() => togglePlayBack()}
+              onPress={() => togglePlayBack(audioTrack[0])}
             />
           ) : (
             <ActivityIndicator size={'large'} />
