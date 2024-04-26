@@ -1,17 +1,23 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {IAudioState} from '../models/audio'
 import {articlesAudioApi} from '../../api/articlesAudioApi.ts'
+import {IAudiOption} from '../../screens'
 
 const initialState: IAudioState = {
   error: null,
   loading: false,
   audios: [],
+  audioTrack: null,
 }
 
 const audioSlice = createSlice({
   name: 'audio',
   initialState,
-  reducers: {},
+  reducers: {
+    setTrackData(state, {payload}: PayloadAction<IAudiOption>) {
+      state.audioTrack = payload
+    },
+  },
   extraReducers: builder => {
     builder
       .addMatcher(
@@ -38,6 +44,6 @@ const audioSlice = createSlice({
   },
 })
 
-export const {} = audioSlice.actions
+export const {setTrackData} = audioSlice.actions
 
 export default audioSlice.reducer

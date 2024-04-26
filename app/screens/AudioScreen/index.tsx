@@ -1,10 +1,12 @@
 import React, {FC, useCallback, useRef} from 'react'
 import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native'
 import {useSelector} from 'react-redux'
+import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet'
 
 import {selectAudios} from '../../store/selectors/articles.ts'
-import {BottomSheetModal} from '@gorhom/bottom-sheet'
 import {BottomSheetModalComponent} from '../../components/BottomSheetModalComponent'
+import {useAppDispatch} from '../../store'
+import {setTrackData} from '../../store/reducers/audio.ts'
 import * as S from './styles.ts'
 
 type MediaType = {
@@ -24,15 +26,16 @@ export interface IAudiOption {
 }
 
 export const AudioScreen: FC = () => {
+  const dispatch = useAppDispatch()
   const audios = useSelector(selectAudios)
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
-  const handlePresentModalPress = useCallback(() => {
+
+  const handlePresentModalPress = useCallback((item: IAudiOption) => {
+    dispatch(setTrackData(item))
     bottomSheetModalRef.current?.present()
   }, [])
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index)
-  }, [])
+
   const ListHeaderComponent: React.FC = () => {
     return (
       <View style={S.CTR}>
@@ -43,32 +46,21 @@ export const AudioScreen: FC = () => {
 
   const renderItem = useCallback(
     ({item}: {item: IAudiOption}) => {
-      const {name, title, icon, media} = item
+      const {name, title, icon} = item
       return (
-        <>
-          <TouchableOpacity
-            onPress={handlePresentModalPress}
-            style={S.CARD_CTR}>
-            <View style={S.TEXT_CTR}>
-              <Text style={S.TITLE_2_TXT}>{name}</Text>
-              <View style={S.IMAGE_CTR}>
-                <Image style={{width: 20, height: 20}} source={{uri: icon}} />
-              </View>
-              <Text numberOfLines={6} ellipsizeMode={'tail'}>
-                {title}
-              </Text>
+        <TouchableOpacity
+          onPress={() => handlePresentModalPress(item)}
+          style={S.CARD_CTR}>
+          <View style={S.TEXT_CTR}>
+            <Text style={S.TITLE_2_TXT}>{name}</Text>
+            <View style={S.IMAGE_CTR}>
+              <Image style={{width: 20, height: 20}} source={{uri: icon}} />
             </View>
-          </TouchableOpacity>
-          <BottomSheetModalComponent ref={bottomSheetModalRef}>
-            <View style={S.TEXT_MODAL_CTR}>
-              <Text style={S.TITLE_2_TXT}>{name}</Text>
-              <View style={S.IMAGE_CTR}>
-                <Image style={{width: 20, height: 20}} source={{uri: icon}} />
-              </View>
-              <Text>{title}</Text>
-            </View>
-          </BottomSheetModalComponent>
-        </>
+            <Text numberOfLines={6} ellipsizeMode={'tail'}>
+              {title}
+            </Text>
+          </View>
+        </TouchableOpacity>
       )
     },
     [audios],
@@ -80,7 +72,7 @@ export const AudioScreen: FC = () => {
   )
 
   return (
-    <>
+    <BottomSheetModalProvider>
       <FlatList
         ListHeaderComponent={() => <ListHeaderComponent />}
         showsVerticalScrollIndicator={false}
@@ -91,6 +83,7 @@ export const AudioScreen: FC = () => {
         stickyHeaderHiddenOnScroll={true}
         stickyHeaderIndices={[0]}
       />
-    </>
+      <BottomSheetModalComponent ref={bottomSheetModalRef} />
+    </BottomSheetModalProvider>
   )
 }

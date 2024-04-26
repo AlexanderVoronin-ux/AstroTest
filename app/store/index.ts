@@ -20,7 +20,8 @@ import {articlesAudioApi} from '../api/articlesAudioApi.ts'
 const persistConfig: PersistConfig<RootState> = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['audio', 'articles'],
+  whitelist: [],
+  // whitelist: ['audio', 'articles'],
   blacklist: [],
 }
 
