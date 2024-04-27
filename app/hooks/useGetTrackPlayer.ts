@@ -20,6 +20,7 @@ export const useGetTrackPlayer = () => {
   const [isPlayerReady, setIsPlayerReady] = useState<boolean>(false)
   const [playerState, setPlayerState] = useState<string>('')
   const [isDownload, setIsDownload] = useState<boolean>(false)
+  const [isMinimize, setIsMinimize] = useState<boolean>(false)
 
   const stopPlayer = async () => {
     await TrackPlayer.stop()
@@ -90,6 +91,7 @@ export const useGetTrackPlayer = () => {
   const handleSheetChanges = useCallback(
     async (index: number) => {
       if (index === 1) {
+        setIsMinimize(false)
         const {isExist, pathToCheck} = await checkExistFile()
         if (!isExist) {
           await setup('')
@@ -97,7 +99,11 @@ export const useGetTrackPlayer = () => {
           await setup(pathToCheck)
         }
       }
-      if (index === -1) await stopPlayer()
+      if (index === 0) setIsMinimize(true)
+      if (index === -1) {
+        await stopPlayer()
+        setIsMinimize(false)
+      }
     },
     [audioTrack],
   )
@@ -126,5 +132,6 @@ export const useGetTrackPlayer = () => {
     isPlayerReady,
     isDownload,
     changeBtnTitle,
+    isMinimize,
   }
 }

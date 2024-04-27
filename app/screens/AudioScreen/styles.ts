@@ -39,14 +39,20 @@ export const TEXT_MODAL_CTR: ViewStyle = {
 }
 export const IMAGE_CTR: ViewStyle = {alignItems: 'center'}
 
-export const TITLE_1_TXT: TextStyle = {
+export const TITLE_TXT: TextStyle = {
   fontFamily: fonts.poppinsExtraBold_800,
   fontSize: 24,
   color: colors.white,
 }
-export const TITLE_2_TXT: TextStyle = {
+export const TITLE_CARD_TXT: TextStyle = {
+  fontFamily: fonts.poppinsExtraBold_800,
+  fontSize: 16,
+  color: colors.black,
+  textAlign: 'center',
+}
+export const SUBSCRIPTION_TXT: TextStyle = {
   fontFamily: fonts.poppinsExtraBold_800,
   fontSize: 14,
-  color: colors.black,
+  color: colors.darkGray,
   textAlign: 'center',
 }

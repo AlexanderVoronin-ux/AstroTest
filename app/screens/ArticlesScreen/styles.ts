@@ -45,3 +45,9 @@ export const TITLE_2_TXT: TextStyle = {
   color: colors.black,
   textAlign: 'center',
 }
+export const SUBSCRIPTION_TXT: TextStyle = {
+  fontFamily: fonts.poppinsExtraBold_800,
+  fontSize: 12,
+  color: colors.darkGray,
+  textAlign: 'center',
+}

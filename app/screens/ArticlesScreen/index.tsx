@@ -41,7 +41,10 @@ export const ArticlesScreen: FC<
           style={S.CARD_CTR}>
           <View style={S.TEXT_CTR}>
             <Text style={S.TITLE_2_TXT}>{title}</Text>
-            <Text numberOfLines={6} ellipsizeMode={'tail'}>
+            <Text
+              style={S.SUBSCRIPTION_TXT}
+              numberOfLines={6}
+              ellipsizeMode={'tail'}>
               {description}
             </Text>
           </View>

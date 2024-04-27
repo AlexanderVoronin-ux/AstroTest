@@ -5,7 +5,7 @@
   "scripts": {
     "start": "react-native start",
     "start:development": "NODE_ENV=development npx react-native start --reset-cache",
-    "start:production": "NODE_ENV=production npx react-native start --reset-cache",
+    "start:production": "NODE_ENV=staging npx react-native start --reset-cache",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",

@@ -4,11 +4,11 @@ import {BottomSheetModal} from '@gorhom/bottom-sheet'
 
 import {colors} from '../../constants'
 import {useGetTrackPlayer} from '../../hooks/useGetTrackPlayer.ts'
-import * as S from '../../screens/AudioScreen/styles.ts'
+import * as S from './styles.ts'
 
 export const BottomSheetModalComponent = forwardRef<BottomSheetModal>(
   (props, ref) => {
-    const snapPoints = useMemo(() => ['35%', '50%'], [])
+    const snapPoints = useMemo(() => ['26%', '50%'], [])
 
     const {
       handleSheetChanges,
@@ -16,6 +16,7 @@ export const BottomSheetModalComponent = forwardRef<BottomSheetModal>(
       audioTrack,
       isPlayerReady,
       changeBtnTitle,
+      isMinimize,
     } = useGetTrackPlayer()
 
     return (
@@ -24,16 +25,18 @@ export const BottomSheetModalComponent = forwardRef<BottomSheetModal>(
         index={1}
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
-        backgroundStyle={{backgroundColor: colors.purpleLight}}>
+        backgroundStyle={{backgroundColor: colors.blue_1}}>
         <View style={S.TEXT_MODAL_CTR}>
-          <Text style={S.TITLE_2_TXT}>{audioTrack[0]?.name}</Text>
+          <Text style={S.TITLE_TXT}>{audioTrack[0]?.name}</Text>
           <View style={S.IMAGE_CTR}>
             <Image
               style={{width: 20, height: 20}}
               source={{uri: audioTrack[0]?.icon}}
             />
           </View>
-          <Text>{audioTrack[0]?.title}</Text>
+          {!isMinimize && (
+            <Text style={S.SUBSCRIPTION_TXT}>{audioTrack[0]?.title}</Text>
+          )}
           {isPlayerReady ? (
             <Button
               title={changeBtnTitle()}

@@ -48,7 +48,7 @@ export const AudioScreen: FC = () => {
   const ListHeaderComponent: React.FC = () => {
     return (
       <View style={S.CTR}>
-        <Text style={S.TITLE_1_TXT}>Audio</Text>
+        <Text style={S.TITLE_TXT}>Audio</Text>
       </View>
     )
   }
@@ -61,11 +61,14 @@ export const AudioScreen: FC = () => {
           onPress={() => handlePresentModalPress(item)}
           style={S.CARD_CTR}>
           <View style={S.TEXT_CTR}>
-            <Text style={S.TITLE_2_TXT}>{name}</Text>
+            <Text style={S.TITLE_CARD_TXT}>{name}</Text>
             <View style={S.IMAGE_CTR}>
               <Image style={{width: 20, height: 20}} source={{uri: icon}} />
             </View>
-            <Text numberOfLines={6} ellipsizeMode={'tail'}>
+            <Text
+              style={S.SUBSCRIPTION_TXT}
+              numberOfLines={6}
+              ellipsizeMode={'tail'}>
               {title}
             </Text>
           </View>
