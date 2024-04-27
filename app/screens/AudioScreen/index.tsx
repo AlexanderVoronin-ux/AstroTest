@@ -9,7 +9,7 @@ import {useAppDispatch} from '../../store'
 import {setTrackData} from '../../store/reducers/audio.ts'
 import * as S from './styles.ts'
 
-type MediaType = {
+export type MediaType = {
   url: string
   mimetype: string
   preview_img: string
@@ -17,15 +17,6 @@ type MediaType = {
 }
 
 export interface IAudiOption {
-  id: number
-  name: string
-  title: string
-  icon: string
-  media: MediaType
-  paid: boolean
-}
-
-export interface IAudiOptionState {
   id: number
   name: string
   title: string
